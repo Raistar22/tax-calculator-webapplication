@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import TaxForm from "./components/TaxForm";
+import TaxPlans from "./components/TaxPlans";
+import TaxSlabs from "./components/TaxSlabs";
 
-function App() {
+const App = () => {
+  const [taxSlabs, setTaxSlabs] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <h1>Income Tax Calculator</h1>
+        <Routes>
+          <Route path="/" element={<TaxForm onTaxSlabsFetch={setTaxSlabs} />} />
+          <Route path="/tax-plans" element={<TaxPlans />} />
+          <Route path="/tax-slabs" element={<TaxSlabs slabs={taxSlabs} />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
